@@ -44,6 +44,20 @@ export const NavItem = styled.div`
     }
 `;
 
+export const SearchWrapper = styled.div`
+    position:relative;
+    float:left;
+    .iconfont{
+        position:absolute;
+        right:5px;
+        bottom:5px;
+        width:30px;
+        line-height:30px;
+        border-radius:15px;
+        text-align:center;
+    }
+`;
+
 export const NavSearch = styled.input.attrs({placeholder: '搜索'})`
     width: 160px;
     height: 38px;
@@ -77,6 +91,7 @@ export const Button = styled.div`
     border-radius: 19px;
     border: 1px solid #ec6149;
     font-size: 14px;
+    
     &.reg{
         color: #ec6149;
     }
