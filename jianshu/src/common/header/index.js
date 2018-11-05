@@ -22,20 +22,28 @@ import {
 
 class Header extends Component {
     getListArea() {
-        const { focused, list } = this.props;
-        if (focused) {
+        const { focused, list, page, totalPage, mouseIn, handleMousEnter, handleMousLeave, handleChangePage } = this.props;
+        const newList = list.toJS();//immutable转普通JS类型
+        const pageList = [];
+        
+        if (newList.length) {
+            for (let i = (page - 1) * 6; i < page * 6; i++) {
+                pageList.push(
+                    <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
+                );
+            }
+        }
+
+        if (focused || mouseIn) {
             return (
-                <SearchInfo>
+                <SearchInfo onMouseEnter={handleMousEnter}
+                    onMouseLeave={handleMousLeave}>
                     <SearchInfoTitle>
                         热门搜索
-                                <SearchInfoSwitch>换一批</SearchInfoSwitch>
+                                <SearchInfoSwitch onClick={() => handleChangePage(page, totalPage)} > 换一批</SearchInfoSwitch>
                     </SearchInfoTitle>
                     <SearchInfoList>
-                        {
-                            list.map((item) => {
-                                return <SearchInfoItem key={item}>{item}</SearchInfoItem>
-                            })
-                        }
+                        {pageList}
                     </SearchInfoList>
                 </SearchInfo>
             )
@@ -89,7 +97,10 @@ const mapStateToProps = (state) => {
     return {
         // focused: state.get('header').get('focused')
         focused: state.getIn(['header', 'focused']),
-        list: state.getIn(['header', 'list'])
+        list: state.getIn(['header', 'list']),
+        page: state.getIn(['header', 'page']),
+        totalPage: state.getIn(['header', 'totalPage']),
+        mouseIn: state.getIn(['header', 'mouseIn']),
     }
 }
 
@@ -101,6 +112,20 @@ const mapDispathToProps = (dispatch) => {
         },
         handleInputBlur() {
             dispatch(actionCreators.searchBlur());
+        },
+        handleMousEnter() {
+            dispatch(actionCreators.mouseEnter());
+        },
+        handleMousLeave() {
+            dispatch(actionCreators.mouseLeave());
+        },
+        handleChangePage(page, totalPage) {
+            if (page < totalPage) {
+                dispatch(actionCreators.changePage(page + 1));
+            } else {
+                dispatch(actionCreators.changePage(1));
+            }
+
         }
     }
 }
