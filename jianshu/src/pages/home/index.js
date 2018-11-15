@@ -3,6 +3,8 @@ import Topic from './components/Topic';
 import List from './components/List';
 import Recommend from './components/Recommend';
 import Writer from './components/Writer';
+import axios from 'axios';
+import { connect } from 'react-redux';
 
 
 
@@ -28,6 +30,26 @@ class Home extends Component {
             </HomeWrapper>
         )
     }
+
+    componentDidMount() {
+        this.props.changeHomeDate();
+    }
 }
 
-export default Home;
+
+const mapDispath = (dispatch) => ({
+    changeHomeDate() {
+        axios.get('./api/home.json').then((res) => {
+            const result = res.data.data;
+            const action = {
+                type: 'change_home_date',
+                topicList: result.topicList,
+                articleList: result.articleList,
+                recommendList: result.recommendList
+            }
+            dispatch(action);
+        })
+    }
+});
+
+export default connect(null, mapDispath)(Home);
