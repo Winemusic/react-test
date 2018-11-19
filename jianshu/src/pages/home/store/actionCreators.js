@@ -33,3 +33,8 @@ export const getMoreList = (page) => {
         })
     }
 }
+
+export const toggleTopShow = (show) => ({
+    type: constans.TOGGLE_SCROLL_TOP,
+    show
+})

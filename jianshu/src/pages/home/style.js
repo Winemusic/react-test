@@ -93,7 +93,7 @@ export const RecommendWrapper = styled.div`
 export const RecommendItem = styled.div`
     width:280px;
     height:50px;
-    background:url(${(props)=>props.imgUrl});
+    background:url(${(props) => props.imgUrl});
     background-size:contain
 `;
 
@@ -117,4 +117,16 @@ export const LoadMore = styled.div`
     border-radius:20px;
     color:#fff;
     cursor:pointer;
+`;
+
+export const BackTop = styled.div`
+    position:fixed;
+    right:100px;
+    bottom:100px
+    width:60px;
+    height:60px;
+    line-height:60px;
+    text-align:center;
+    border:1px solid #ccc;
+    font-size:14px;
 `;
