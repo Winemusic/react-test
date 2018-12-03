@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { DetailWrapper, Header, Content } from './style';
 import { connect } from 'react-redux';
 import { actionCreators } from './store';
+import { withRouter } from 'react-router-dom';
 
 class Detail extends Component {
     render() {
@@ -32,4 +33,4 @@ const mapDispath = (dispath) => ({
     }
 })
 
-export default connect(mapState, mapDispath)(Detail);
+export default connect(mapState, mapDispath)(withRouter(Detail));
